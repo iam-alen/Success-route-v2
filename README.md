@@ -1,89 +1,144 @@
 # 🚀 Success Route
 
-> **Work backwards from your dream job.** Success Route uses a *Reverse Methodology*: pick the role you want, and the platform maps out the skills, education and certifications needed to get there.
+> **Work backwards from your dream job.** Pick a target role and Success Route shows the skills, salary range and step-by-step path to reach it, recommends careers that match your skills, and scores your resume against real job-posting data.
 
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-7-646CFF?logo=vite&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?logo=javascript&logoColor=black)
-![Status](https://img.shields.io/badge/status-in%20development-orange)
-
----
+![Node.js](https://img.shields.io/badge/Node.js-Express-339933?logo=node.js&logoColor=white)
+![Gemini](https://img.shields.io/badge/AI-Gemini-4285F4?logo=google&logoColor=white)
 
 ## 📌 About
 
-Most career guidance starts from where you are today. **Success Route starts from where you want to be** and works backward: enter a target role (e.g. *Data Scientist*, *AI Engineer*, *Project Manager*) and get a step-by-step pathway to reach it.
+Most career guidance starts from where you are today. **Success Route starts from where you want to be** (the *Reverse Methodology*) and works backward to the skills, certifications and learning steps needed.
+
+Skills and salaries come from **120,000+ real LinkedIn job postings**. A Gemini AI model fills in what the dataset can't (education, certifications, learning steps, project ideas) and handles roles that are not in the data.
 
 ## ✨ Features
 
-| Feature | Description | Status |
-|---|---|---|
-| 🔐 Login / Register UI | Responsive split-screen auth page with toggle between sign in and sign up | ✅ UI complete |
-| 🎯 Reverse Roadmap | Enter a target job role to generate a goal-first career roadmap | 🚧 In progress |
-| 📄 AI Resume Analyzer | Upload a resume for an ATS-friendly score and optimization tips | 🚧 Planned |
-| 📈 Market Trends | Salary ranges and experience expectations from 2025 tech datasets | 🚧 Planned |
-| 🧑‍💻 Dashboard | Personalized dashboard with welcome screen, role input and feature cards | ✅ UI complete |
+| Feature | Description |
+|---|---|
+| 🔐 **Accounts** | Sign up and sign in with email and password (bcrypt-hashed passwords, JWT sessions) |
+| 👤 **Profile** | Save education, skills, interests and preferred career fields |
+| 🎯 **AI Career Recommendations** | Roles ranked by how well your skills match real job postings, with skill gaps and salary range |
+| 🛣️ **Reverse Roadmap** | Enter a target role to get salary levels, required skills, certifications, project ideas and an expandable step-by-step path |
+| 🧠 **Skill Gap Analysis** | Compares your profile skills with the most requested skills for the role |
+| ✅ **Progress Tracking** | Tick off roadmap steps; progress shows on your dashboard |
+| 📄 **Resume ATS Analyzer** | Upload a PDF or DOCX for an ATS score with breakdown, missing keywords and improvement tips |
+| ✨ **AI Resume Optimizer** | Rewrites your resume for the target role using only your own content (gaps appear as `[ADD: ...]` placeholders) |
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** React 19, Vite 7, JavaScript (ES6+)
-- **Tooling:** ESLint 9, `@vitejs/plugin-react`
-- **State management:** React Hooks (`useState`)
-- **Styling:** Inline CSS (responsive flex/grid layouts)
+| Layer | Technology |
+|---|---|
+| Frontend | React 19, React Router, Vite |
+| Backend | Node.js, Express |
+| AI | Google Gemini API |
+| Auth | JSON Web Tokens, bcryptjs |
+| Files | Multer, pdf-parse, mammoth |
+| Data | LinkedIn Job Postings dataset (Kaggle), JSON-file storage for users |
 
 ## 📂 Project Structure
 
 ```
 success-route/
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── App.jsx        # Auth screen + Dashboard components
-│   │   ├── App.css
-│   │   ├── index.css
-│   │   └── main.jsx       # App entry point
-│   ├── index.html
-│   ├── vite.config.js
-│   └── package.json
-└── backend/               # API (planned / in progress)
+├── backend/
+│   ├── data/                # postings.csv goes here (not included)
+│   ├── lib/
+│   │   ├── recommend.js     # career matching and skill gap logic
+│   │   └── resume.js        # ATS scoring logic
+│   ├── ai.js                # Gemini helpers
+│   ├── dataset.js           # reads the CSV, counts skills and salaries
+│   ├── db.js                # JSON-file storage
+│   ├── server.js            # Express API
+│   └── .env                 # your keys (not committed)
+└── frontend/
+    └── src/
+        ├── components/      # Navbar, TagInput
+        ├── pages/           # Landing, AuthPage, Dashboard, Profile, CareerAdvice, Roadmap, Resume
+        ├── api.js
+        ├── AuthContext.jsx
+        └── App.jsx
 ```
 
+## ⚙️ Getting Started
 
-### Available Scripts
+**Prerequisites:** Node.js 18+, a free [Gemini API key](https://aistudio.google.com/apikey) and a free Kaggle account.
 
-| Command | Description |
-|---|---|
-| `npm run dev` | Start the development server with hot reload |
-| `npm run build` | Create a production build |
-| `npm run preview` | Preview the production build locally |
-| `npm run lint` | Run ESLint |
+### 1. Clone
 
-## 🧭 How It Works (Reverse Methodology)
+```bash
+git clone https://github.com/iam-alen/success-route.git
+cd success-route
+```
 
-1. **Pick your destination:** enter the job role you want.
-2. **Work backward:** the system identifies the skills, education and certifications that role requires.
-3. **Get a pathway:** a step-by-step roadmap from your current position to your goal.
-4. **Optimize:** analyze your resume against ATS standards and compare against market data.
+### 2. Download the dataset
 
-## 🗺️ Roadmap
+Download **[LinkedIn Job Postings](https://www.kaggle.com/datasets/arshkon/linkedin-job-postings)** from Kaggle, unzip it and copy **`postings.csv`** into `backend/data/`. (The file is about 500 MB, so it is not stored in this repo.)
 
-- [x] Responsive login / register interface
-- [x] Dashboard layout with job-role input
-- [ ] Backend API with real authentication (JWT)
-- [ ] Roadmap generation engine
-- [ ] Resume upload and ATS scoring
-- [ ] Market trends and salary data visualisation
-- [ ] Save and track roadmap progress
-- [ ] Deployment (Vercel / Netlify)
+### 3. Backend
 
-## 🤝 Contributing
+```bash
+cd backend
+npm install
+```
 
-Contributions, issues and feature requests are welcome. Feel free to open an issue or submit a pull request.
+Create `backend/.env`:
+
+```
+GEMINI_API_KEY=your-gemini-key
+JWT_SECRET=any-long-random-text
+```
+
+```bash
+node server.js
+```
+
+Wait 30–90 seconds until you see `Dataset loaded` and `Backend running on http://localhost:5000`.
+
+### 4. Frontend (new terminal)
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open **http://localhost:5173**.
+
+## 🔌 API Overview
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/api/auth/register`, `/api/auth/login` | Create account / sign in |
+| GET, PUT | `/api/profile` | Read / save profile |
+| POST | `/api/recommendations` | Career matches for the profile |
+| POST | `/api/roadmap` | Roadmap for a role |
+| GET, PUT | `/api/progress` | Roadmap progress |
+| POST | `/api/resume/analyze` | ATS score for an uploaded resume |
+| POST | `/api/resume/optimize` | AI-optimized resume text |
+
+All routes except register and login need `Authorization: Bearer <token>`.
+
+## ⚠️ Limitations
+
+- Job data is from **US LinkedIn postings**, so salaries are in USD and may not match other countries.
+- Skills are detected by keyword from a fixed list (`SKILLS_TO_FIND` in `backend/dataset.js`).
+- Resume analysis supports text-based PDF and DOCX only (not scanned images).
+- Users are stored in a local JSON file. Use a real database before any production deployment.
+- The ATS score is rule-based and is not a real employer ATS.
+
+## 🗺️ Future Scope
+
+- [ ] Move storage to MongoDB / PostgreSQL
+- [ ] Deploy (Vercel + Render) with a pre-processed dataset
+- [ ] Add soft-skill and certification data
+- [ ] Learning resource links per skill
+- [ ] Mobile-friendly app
 
 ## 👤 Author
 
-**Alen**
-GitHub: [@iam-alen](https://github.com/iam-alen)
+**Alen KM AS** · [@iam-alen](https://github.com/iam-alen)
 
 ---
 
-⭐ If you like this project, consider giving it a star!
+⭐ If you find this useful, consider starring the repo.
