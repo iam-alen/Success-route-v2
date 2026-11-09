@@ -67,8 +67,8 @@ success-route/
 ### 1. Clone
 
 ```bash
-git clone https://github.com/iam-alen/success-route.git
-cd success-route
+git clone https://github.com/iam-alen/success-route-v2.git
+cd success-route-v2
 ```
 
 ### 2. Download the dataset
